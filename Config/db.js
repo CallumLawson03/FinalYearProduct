@@ -1,4 +1,4 @@
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const pool = mysql.createPool({
     host: process.env.DB_Host,
@@ -8,3 +8,13 @@ const pool = mysql.createPool({
     database: process.env.DB_Name,
     sslmod: process.env.DB_SSLMode,
 })
+
+connection.connect((err) => {
+    if (err) {
+      console.error('❌ Database connection failed: ', err.stack);
+      return;
+    }
+    console.log('✅ Connected to database.');
+  });
+  
+  module.exports = connection;
