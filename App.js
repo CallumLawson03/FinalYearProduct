@@ -15,27 +15,27 @@ app.use(express.static('public'));
 
 // Home page route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.html'));
+  res.sendFile(path.join(__dirname, 'views', 'index.ejs'));
 });
 
 // Product page route
 app.get('/products', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'products.html'));
+  res.sendFile(path.join(__dirname, 'views', 'products.ejs'));
 });
 
 // Login page route
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+  res.sendFile(path.join(__dirname, 'views', 'login.ejs'));
 });
 
 // Cart page route
 app.get('/cart', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'cart.html'));
+  res.sendFile(path.join(__dirname, 'views', 'cart.ejs'));
 });
 
 // Signup page route
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'signup.html'));
+  res.sendFile(path.join(__dirname, 'views', 'signup.ejs'));
 });
 
 // Start server
