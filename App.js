@@ -37,6 +37,7 @@ app.get('/login', (req, res) => {
 app.post('/login', (req, res) => {
   const { username, email, password } = req.body;
 
+  // Use placeholders to avoid SQL injection
   const query = `SELECT * FROM users WHERE username = ? AND email = ?`;
 
   db.query(query, [username, email], (err, results) => {
@@ -45,20 +46,13 @@ app.post('/login', (req, res) => {
       return res.render('login', { error: 'An error occurred. Please try again later.' });
     }
 
-    if (results.length === 0) {
-      // No user found with this username and email
-      return res.render('login', { error: 'User not found!' });
+    // If no user is found or password doesn't match, show a generic error
+    if (results.length === 0 || results[0].password !== password) {
+      return res.render('login', { error: 'Incorrect username or password!' });
     }
 
-    const user = results[0];
-
-    if (user.password === password) {
-      // Successful login
-      res.redirect('/');
-    } else {
-      // Incorrect password
-      res.render('login', { error: 'Incorrect password!' });
-    }
+    // Successful login, redirect to home page
+    res.redirect('/');
   });
 });
 
