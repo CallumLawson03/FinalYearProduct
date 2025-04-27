@@ -4,7 +4,9 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path'); 
+const db = require('./config/db');  // Import the db connection
 const app = express();
+
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
@@ -36,9 +38,28 @@ app.get('/cart', (req, res) => {
   res.render(path.join(__dirname, 'views', 'cart.ejs'));
 });
 
-// Signup page route
+// Signup page GET route
 app.get('/signup', (req, res) => {
   res.render(path.join(__dirname, 'views', 'signup.ejs'));
+});
+
+// POST route to handle user registration
+app.post('/signup', (req, res) => {
+  const { username, email, password } = req.body;
+
+  // Insert user into the database
+  const query = `INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'customer')`;
+
+  db.query(query, [username, email, password], (err, result) => {
+      if (err) {
+          console.error('Error inserting user:', err);
+          res.status(500).send('Error while registering user');
+          return;
+      }
+
+      console.log('User registered:', result);
+      res.send('User registered successfully!');
+  });
 });
 
 // Start server
