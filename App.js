@@ -6,6 +6,9 @@ const bodyParser = require('body-parser');
 const path = require('path'); 
 const app = express();
 
+// Set EJS as the template engine
+app.set('view engine', 'ejs');
+
 // Middleware to parse request body
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -15,27 +18,27 @@ app.use(express.static('public'));
 
 // Home page route
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'index.ejs'));
+  res.render(path.join(__dirname, 'views', 'index.ejs'));
 });
 
 // Product page route
 app.get('/products', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'products.ejs'));
+  res.render(path.join(__dirname, 'views', 'products.ejs'));
 });
 
 // Login page route
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.ejs'));
+  res.render(path.join(__dirname, 'views', 'login.ejs'));
 });
 
 // Cart page route
 app.get('/cart', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'cart.ejs'));
+  res.render(path.join(__dirname, 'views', 'cart.ejs'));
 });
 
 // Signup page route
 app.get('/signup', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'signup.ejs'));
+  res.render(path.join(__dirname, 'views', 'signup.ejs'));
 });
 
 // Start server
