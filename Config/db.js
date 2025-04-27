@@ -9,12 +9,3 @@ const pool = mysql.createPool({
     sslmod: process.env.DB_SSLMode,
 })
 
-connection.connect((err) => {
-    if (err) {
-      console.error('❌ Database connection failed: ', err.stack);
-      return;
-    }
-    console.log('✅ Connected to database.');
-  });
-  
-  module.exports = connection;
