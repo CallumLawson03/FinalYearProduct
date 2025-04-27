@@ -33,6 +33,35 @@ app.get('/login', (req, res) => {
   res.render(path.join(__dirname, 'views', 'login.ejs'));
 });
 
+// Post route to handle user login
+app.post('/login', (req, res) => {
+  const { username, email, password } = req.body;
+
+  const query = `SELECT * FROM users WHERE username = ? AND email = ?`;
+
+  db.query(query, [username, email], (err, results) => {
+    if (err) {
+      console.error(err);
+      return res.render('login', { error: 'An error occurred. Please try again later.' });
+    }
+
+    if (results.length === 0) {
+      // No user found with this username and email
+      return res.render('login', { error: 'User not found!' });
+    }
+
+    const user = results[0];
+
+    if (user.password === password) {
+      // Successful login
+      res.redirect('/');
+    } else {
+      // Incorrect password
+      res.render('login', { error: 'Incorrect password!' });
+    }
+  });
+});
+
 // Cart page route
 app.get('/cart', (req, res) => {
   res.render(path.join(__dirname, 'views', 'cart.ejs'));
