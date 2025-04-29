@@ -3,12 +3,12 @@ const router = express.Router();
 const db = require('./config/db');
 
 // Login page route
-app.get('/login', (req, res) => {
-    res.render(path.join(__dirname, 'views', 'login.ejs'));
+router.get('/login', (req, res) => {
+  res.render('login');
   });
   
   // Post route to handle user login
-  app.post('/login', (req, res) => {
+  router.post('/login', (req, res) => {
     const { username, email, password } = req.body;
   
     // Use placeholders to avoid SQL injection
@@ -31,26 +31,26 @@ app.get('/login', (req, res) => {
   
   
   // Signup page GET route
-  app.get('/signup', (req, res) => {
-    res.render(path.join(__dirname, 'views', 'signup.ejs'));
+  router.get('/signup', (req, res) => {
+    res.render('signup');
   });
   
   // POST route to handle user registration
-  app.post('/signup', (req, res) => {
+  router.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
   
     // Insert user into the database
     const query = `INSERT INTO users (username, email, password, role) VALUES (?, ?, ?, 'customer')`;
   
     db.query(query, [username, email, password], (err, result) => {
-        if (err) {
-            console.error('Error inserting user:', err);
-            res.status(500).send('Error while registering user');
-            return;
+      if (err) {
+          console.error('Error inserting user:', err);
+          res.status(500).send('Error while registering user');
+          return;
         }
-  
-        console.log('User registered:', result);
-        res.send('User registered successfully!');
+
+      console.log('User registered:', result);
+      res.send('User registered successfully!');
     });
   });
 
