@@ -13,6 +13,11 @@
         <a href="/products">Products</a> |
         <a href="/cart">Cart</a>
     </nav>
+    <% if (user) { %>
+        <p>Logged in as: <%= user.username %> (<%= user.role %>)</p>
+    <% } else { %>
+        <p>You are not logged in.</p>
+    <% } %>
     <p>This is a deliberately vulnerable e-commerce site!</p>
 </body>
 </html>

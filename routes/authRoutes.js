@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const db = require('./config/db');
+const db = require('../config/db');
 
 // Login page route
 router.get('/login', (req, res) => {
@@ -11,7 +11,7 @@ router.get('/login', (req, res) => {
   router.post('/login', (req, res) => {
     const { username, email, password } = req.body;
   
-    // Use placeholders to avoid SQL injection
+  // Use placeholders to avoid SQL injection
     const query = `SELECT * FROM users WHERE username = ? AND email = ?`;
   
     db.query(query, [username, email], (err, results) => {
@@ -23,7 +23,14 @@ router.get('/login', (req, res) => {
       if (results.length === 0 || results[0].password !== password) {
         return res.render('login', { error: 'Incorrect username or password!' });
       }
-  
+      
+      // Save user info to session
+    req.session.user = {
+    id: results[0].id,
+    username: results[0].username,
+    role: results[0].role
+  };
+      
       // Successful login, redirect to home page
       res.redirect('/');
     });
