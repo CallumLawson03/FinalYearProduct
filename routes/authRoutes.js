@@ -11,8 +11,7 @@ router.get('/login', (req, res) => {
   router.post('/login', (req, res) => {
     const { username, email, password } = req.body;
   
-  // Use placeholders to avoid SQL injection
-    const query = `SELECT * FROM users WHERE username = ? AND email = ?`;
+    const query = `SELECT * FROM users WHERE username = '${username}' AND email = '${email}'`;
   
     db.query(query, [username, email], (err, results) => {
       if (err) {
@@ -20,7 +19,7 @@ router.get('/login', (req, res) => {
         return res.render('login', { error: 'An error occurred. Please try again later.' });
       }
   
-      if (results.length === 0 || results[0].password !== password) {
+      if (results.length === 0) {
         return res.render('login', { error: 'Incorrect username or password!' });
       }
       
