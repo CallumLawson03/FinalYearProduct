@@ -61,4 +61,14 @@ router.get('/login', (req, res) => {
     });
   });
 
+  router.get('/logout', (req, res) => {
+    req.session.destroy(err => {
+      if (err) {
+        console.error('Logout error:', err);
+        return res.status(500).send('Could not log out.');
+      }
+      res.redirect('/');
+    });
+  });
+
   module.exports = router;

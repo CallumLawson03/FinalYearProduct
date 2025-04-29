@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 
 //Creating the session ID
 app.use(session({
-  secret: 'your-secret-key', // 🔒 use a strong random string in production!
+  secret: 'your-secret-key', // use a strong random string in production!
   resave: false,
   saveUninitialized: false
 }));
@@ -32,6 +32,7 @@ app.use((req, res, next) => {
 
 // Serve static files like images and css 
 app.use(express.static('public'));
+app.use('/productimages', express.static(path.join(__dirname, 'public', 'productimages')));
 
 app.use('/', generalRoutes);
 app.use('/', authRoutes);

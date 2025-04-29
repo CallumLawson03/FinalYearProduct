@@ -1,0 +1,12 @@
+<nav>
+    <a href="/">Home</a> |
+    <a href="/products">Products</a> |
+    <a href="/cart">Cart</a> |
+    <% if (user) { %>
+        <span>Welcome, <%= user.username %>!</span> |
+        <a href="/logout">Logout</a>
+    <% } else { %>
+        <a href="/login">Login</a> |
+        <a href="/signup">Sign Up</a>
+    <% } %>
+</nav>

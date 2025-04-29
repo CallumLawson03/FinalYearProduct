@@ -1,11 +1,22 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="/style.css">
     <meta charset="UTF-8">
-    <title>Cart</title>
+    <title>Products</title>
 </head>
-<body>
-    <h1>Your Cart is Empty</h1>
-    <p>Check out our products <a href="/products">here</a>.</p>
+<body> 
+    <%- include('partials/header') %>
+    <% products.forEach(product => { %>
+        <div class="product">
+            <h3><%= product.name %></h3>
+            <p><%= product.description %></p>
+            <p>Price: $<%= product.price %></p>
+            
+            <!-- Dynamically render the image using the image_url from the DB -->
+            <img src="<%= product.image_url %>" alt="<%= product.name %>" />
+        </div>
+    <% }); %>
 </body>
+</html>
 </html>
