@@ -23,6 +23,18 @@ router.get('/products', (req, res) => {
   });
 });
 
+router.get('/products/edit/:id', (req, res) => {
+  const productId = req.params.id;
+  const query = `SELECT * FROM products WHERE id = ?`;  // safe for now
+
+  db.query(query, [productId], (err, results) => {
+    if (err || results.length === 0) {
+      console.error(err);
+      return res.status(500).send('Product not found');
+    }
+    res.render('edit-product', { product: results[0] });
+  });
+});
 
 // Cart page route
 router.get('/cart', (req, res) => {
