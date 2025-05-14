@@ -37,7 +37,7 @@ app.use('/productimages', express.static(path.join(__dirname, 'public', 'product
 
 app.use('/', generalRoutes); // General routes not requiring admin or authentication
 app.use('/', authRoutes); // Routes requiring authentication
-app.use('/', productRoutes); // Admin-only route to delete and edit products
+app.use('/products', productRoutes); // Admin-only route to delete and edit products
 
 // Start server
 const PORT = process.env.PORT || 3000;
