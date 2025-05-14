@@ -15,12 +15,9 @@
     <% products.forEach(product => { %>
         <div class="product">
             <h3><%= product.name %></h3>
+            
             <p><%= product.description %></p>
             <p>Price: $<%= product.price %></p>
-            
-            
-            <img src="<%= product.image_url %>" alt="<%= product.name %>" />
-
         
             <% if (user && user.role === 'admin') { %>
                 <div class="admin-controls">
