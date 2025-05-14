@@ -7,16 +7,29 @@
 </head>
 <body> 
     <%- include('partials/header') %>
+
     <% products.forEach(product => { %>
         <div class="product">
             <h3><%= product.name %></h3>
             <p><%= product.description %></p>
             <p>Price: $<%= product.price %></p>
             
-            <!-- Dynamically render the image using the image_url from the DB -->
+            
             <img src="<%= product.image_url %>" alt="<%= product.name %>" />
+
+        
+            <% if (user && user.role === 'admin') { %>
+                <div class="admin-controls">
+                   
+                    <form action="/products/edit/<%= product.id %>" method="get" style="display:inline;">
+                        <button type="submit">Edit</button>
+                    </form>
+                    
+                    
+                    <form action="/products/delete/<%= product.id %>" method="post" style="display:inline;" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                        <button type="submit">Delete</button>
+                    </form>
+                </div>
+            <% } %>
         </div>
     <% }); %>
-</body>
-</html>
-</html>

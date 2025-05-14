@@ -10,6 +10,7 @@ const session = require('express-session');
 
 const generalRoutes = require('./routes/generalRoutes');
 const authRoutes = require('./routes/authRoutes');
+const productRoutes = require('./routes/productRoutes'); 
 
 // Set EJS as the template engine
 app.set('view engine', 'ejs');
@@ -34,8 +35,9 @@ app.use((req, res, next) => {
 app.use(express.static('public'));
 app.use('/productimages', express.static(path.join(__dirname, 'public', 'productimages')));
 
-app.use('/', generalRoutes);
-app.use('/', authRoutes);
+app.use('/', generalRoutes); // General routes not requiring admin or authentication
+app.use('/', authRoutes); // Routes requiring authentication
+app.use('/', productRoutes); // Admin-only route to delete and edit products
 
 // Start server
 const PORT = process.env.PORT || 3000;
