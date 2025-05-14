@@ -36,9 +36,9 @@ router.post('/add', checkAdmin, upload.single('image'), (req, res) => {
   });
   
 // GET: Edit form for a specific product
-router.get('/edit/:id', checkAdmin, (req, res) => {
+router.get('/edit/:id', (req, res) => {
   const id = req.params.id;
-  db.query('SELECT * F-=ROM products WHERE id = ?', [id], (err, results) => {
+  db.query('SELECT * FROM products WHERE id = ?', [id], (err, results) => {
     if (err || results.length === 0) {
       return res.status(404).send('Product not found');
     }
@@ -47,7 +47,7 @@ router.get('/edit/:id', checkAdmin, (req, res) => {
 });
 
 // POST: Handle edit submission for a product
-router.post('/edit/:id', checkAdmin, (req, res) => {
+router.post('/edit/:id', (req, res) => {
   const { name, description, price } = req.body;
   const id = req.params.id;
   db.query('UPDATE products SET name = ?, description = ?, price = ? WHERE id = ?', [name, description, price, id], (err) => {
